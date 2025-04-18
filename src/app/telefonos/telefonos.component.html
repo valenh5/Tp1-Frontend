@@ -1,0 +1,23 @@
+<table>
+    <thead>
+      <tr>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Smartphone</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let telefono of telefonos">
+        <td>{{ telefono.marca }}</td>
+        <td>{{ telefono.modelo }}</td>
+        <td>{{ telefono.esSmartphone ? 'Sí' : 'No' }}</td>
+        <td>
+          <button (click)="editarTelefono(telefono.id)">Modificar</button>
+          <button (click)="eliminarTelefono(telefono.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="crearTelefono()">Crear Nuevo</button>
+  
