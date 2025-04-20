@@ -1,0 +1,21 @@
+.opciones{
+    margin-left: 20px;
+    padding: 10px 20px 10px 20px;
+    font-family: cursive;
+}
+
+#editar{
+    background-color: lightgreen;
+}
+
+#borrar{
+    background-color: lightcoral;
+}
+
+#tabla{
+    margin-bottom: 10px;
+}
+
+#crear{
+    margin-top: 10px;
+}

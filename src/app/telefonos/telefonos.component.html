@@ -1,6 +1,40 @@
+<link rel="stylesheet" href="../telefonos/telefonos.component.css">
+
+<table id="tabla">
+  <thead>
+    <tr>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Smartphone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let telefono of telefonos">
+      <td>{{ telefono.marca }}</td>
+      <td>{{ telefono.modelo }}</td>
+      <td>{{ telefono.esSmartphone ? 'Sí' : 'No' }}</td>
+      <td>
+        <button class="opciones" id="editar" (click)="editarTelefono(telefono)">Editar</button>
+        <button class="opciones" id="borrar" (click)="eliminarTelefono(telefono.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div *ngIf="telefonoEditando">
+  <h2>Editar Teléfono</h2>
+  <input type="text" [(ngModel)]="telefonoEditando.marca" placeholder="Marca">
+  <input type="text" [(ngModel)]="telefonoEditando.modelo" placeholder="Modelo">
+  <label>
+    <input type="checkbox" [(ngModel)]="telefonoEditando.esSmartphone"> Es Smartphone
+  </label>
+  <button (click)="guardarCambios()">Guardar Cambios</button>
+  <button (click)="telefonoEditando = null">Cancelar</button>
+</div>
+
 <button (click)="toggleFormulario()">Agregar Teléfono</button>
 
-<!-- Formulario visible solo si mostrarFormulario es true -->
 <div *ngIf="mostrarFormulario">
   <h2>Agregar Nuevo Teléfono</h2>
   <input type="text" [(ngModel)]="telefonoNuevo.marca" placeholder="Marca">
@@ -8,28 +42,5 @@
   <label>
     <input type="checkbox" [(ngModel)]="telefonoNuevo.esSmartphone"> Es Smartphone
   </label>
-  <button (click)="crearTelefono()">Guardar</button>
+  <button id="crear" (click)="crearTelefono()">Guardar</button>
 </div>
-
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Marca</th>
-      <th>Modelo</th>
-      <th>Smartphone</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let telefono of telefonos">
-      <td>{{ telefono.id }}</td>
-      <td>{{ telefono.marca }}</td>
-      <td>{{ telefono.modelo }}</td>
-      <td>{{ telefono.esSmartphone ? 'Sí' : 'No' }}</td>
-      <td>
-        <button (click)="eliminarTelefono(telefono.id)">Eliminar</button>
-      </td>
-    </tr>
-  </tbody>
-</table>

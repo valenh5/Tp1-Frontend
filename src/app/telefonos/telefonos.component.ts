@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class TelefonosComponent implements OnInit {
   telefonos: any[] = [];
   telefonoNuevo: any = { marca: '', modelo: '', esSmartphone: false };
-  telefonoEditando: any = { id: 0, marca: '', modelo: '', esSmartphone: false };
+  telefonoEditando: any = null;
   mostrarFormulario: boolean = false;
 
   constructor() {}
@@ -32,7 +32,7 @@ export class TelefonosComponent implements OnInit {
       const response = await axios.get("http://localhost:3000/telefonos"); 
       this.telefonos = response.data;
     } catch (error) {
-      console.error("Error al cargar teléfonos:", error);
+      console.error("Error al cargar telefonos:", error);
     }
   }
 
@@ -42,32 +42,40 @@ export class TelefonosComponent implements OnInit {
       await this.cargarTelefonos();
       this.telefonoNuevo = { marca: '', modelo: '', esSmartphone: false };
     } catch (error) {
-      console.error("Error al crear teléfono:", error);
+      console.error("Error al crear telefono:", error);
     }
   }
 
-  /*editarTelefono(t: Telefono): void {
-    this.telefonoEditando = { ...t };
-  }*/
+  editarTelefono(telefono: any): void {
+    this.telefonoEditando = { ...telefono };
+  }
 
-    async guardarCambios(): Promise<void> {
-      if (this.telefonoEditando.id) {
-        try {
-          await axios.put(`http://localhost:3000/telefonos/${this.telefonoEditando.id}`, this.telefonoEditando);
-          await this.cargarTelefonos();
-          this.telefonoEditando = { id: 0, marca: '', modelo: '', esSmartphone: false };
-        } catch (error) {
-          console.error("Error al guardar cambios:", error);
-        }
+  async guardarCambios(): Promise<void> {
+    if (this.telefonoEditando?.id !== undefined && this.telefonoEditando?.id !== 0) {
+      try {
+        await axios.put(`http://localhost:3000/telefonos/${this.telefonoEditando.id}`, {
+          marca: this.telefonoEditando.marca,
+          modelo: this.telefonoEditando.modelo,
+          esSmartphone: this.telefonoEditando.esSmartphone
+        });
+
+        await this.cargarTelefonos();
+        this.telefonoEditando = null; 
+      } catch (error) {
+        console.error("Error al guardar cambios:", error);
       }
+    } else {
+      console.warn("No se puede guardar cambios: ID invalido.");
     }
+  }
+
 
     async eliminarTelefono(id: number): Promise<void> {
       try {
         await axios.delete(`http://localhost:3000/telefonos/${id}`);
         await this.cargarTelefonos();
       } catch (error) {
-        console.error("Error al eliminar teléfono:", error);
+        console.error("Error al eliminar telefono:", error);
       }
     }
   }
