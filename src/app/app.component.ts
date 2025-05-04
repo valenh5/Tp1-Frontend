@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { TelefonosComponent } from './telefonos/telefonos.component';
-import { CommonModule } from '@angular/common';
+import { LoginComponent } from './login/login.component'; //cambiar de acuerdo a que html abrir
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TelefonosComponent, CommonModule], 
-  template: `<app-telefonos></app-telefonos>`,
+  imports: [LoginComponent, FormsModule],  //tambien esto
+  template: `<app-login></app-login>`,
 })
 export class AppComponent {}

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import * as yaml from 'js-yaml';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [FormsModule], 
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
